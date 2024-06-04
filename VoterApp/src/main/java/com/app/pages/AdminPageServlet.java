@@ -42,10 +42,11 @@ public class AdminPageServlet extends HttpServlet {
 			
 			pw.print("<h3>Top Two Voters Which have Maximum Count Of Votes:</h3>");
 			pw.print("<table border='1'>");
-			pw.print("<tr><th>Candidate Name</th><th>Party</th><th>Votes</th></tr>");
+			pw.print("<tr><th>Candidate ID</th><th>Candidate Name</th><th>Party</th><th>Votes</th></tr>");
 
 			for(Candidate c:candidates) {
 			    pw.print("<tr>");
+			    pw.print("<td>" + c.getCandidateId()+ "</td>");
 			    pw.print("<td>" + c.getCandidateName() + "</td>");
 			    pw.print("<td>" + c.getParty() + "</td>");
 			    pw.print("<td>" + c.getVotes() + "</td>");
@@ -64,8 +65,10 @@ public class AdminPageServlet extends HttpServlet {
 			    pw.print("<td>" + cd.getVotes() + "</td>");
 			    pw.print("</tr>");
 			}
-
 			pw.print("</table>");
+			pw.print("<h4>Logout From this page:!<h4>");
+			pw.print("<h3><button type='submit'><a href='login.html'>LogOut</a></button></h3>");
+			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

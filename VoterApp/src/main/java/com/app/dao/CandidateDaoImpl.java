@@ -21,7 +21,7 @@ public class CandidateDaoImpl implements CandidateDao{
 		con=openConnection();
 		pst1=con.prepareStatement("select * from candidates");
 		pst2=con.prepareStatement("update candidates set votes=votes+1 where id=?");
-		pst3=con.prepareStatement("select * from candidates where votes > (select avg(votes) from candidates)");
+		pst3=con.prepareStatement("select * from candidates order by votes desc limit 2");
 		pst4=con.prepareStatement("SELECT party, SUM(votes) as total_votes from candidates group by party");
 				
 		System.out.println("Candidate Dao Created");
