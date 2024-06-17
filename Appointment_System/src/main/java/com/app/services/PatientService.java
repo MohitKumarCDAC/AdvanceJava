@@ -11,5 +11,5 @@ public interface PatientService {
     List<PatientDto> getAllPatients();
     PatientDto getByID(Long id);
     PatientDto deleteByID(Long id);
-    Apiresponse updatePatientRecord(Long id,Patient NewPatient);
+    PatientDto updatePatientRecord(Long id,PatientDto NewPatient);
 }

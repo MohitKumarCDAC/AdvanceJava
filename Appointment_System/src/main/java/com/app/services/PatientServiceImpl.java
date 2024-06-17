@@ -63,16 +63,16 @@ public class PatientServiceImpl implements PatientService {
 
 
 	@Override
-	public Apiresponse updatePatientRecord(Long id, Patient NewPatient) {
+	public PatientDto updatePatientRecord(Long id, PatientDto NewPatient) {
 		String msg="Updation Failed....";
-		if(patientRepo.existsById(id)) {
-			patientRepo.save(NewPatient);
-			msg="Updatation done.....";
-		}else
+		Patient patient=modelmapper.map(NewPatient, Patient.class);
+		if(patientRepo.existsById(id))
 		{
-			throw new PatientNotFoundException("Invalid Patient ID:...");
+			patient.setId(id);
+			patientRepo.save(patient);
+			return modelmapper.map(patient, PatientDto.class);
 		}
-		return new Apiresponse(msg);
+		throw new PatientNotFoundException("patient id not found");
 	}
 
 }

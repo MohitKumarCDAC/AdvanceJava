@@ -1,17 +1,23 @@
 package com.app.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.Dto.AppointmentDto;
 import com.app.services.AppointmentServices;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
@@ -20,23 +26,47 @@ public class AppointmentController {
   @Autowired
   private AppointmentServices services;
   
-  @PostMapping("/create")
-  public ResponseEntity<?> createAppointment(@RequestBody AppointmentDto appointmentDto) {
-      try {
-          AppointmentDto createdAppointment = services.createAppointment(appointmentDto);
-          return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
-      } catch (IllegalArgumentException e) {
-          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-      }
+  @GetMapping
+  @Operation(description = "Get All AppointMent")
+  public ResponseEntity<?> getAllAppointment()
+  {
+	  return ResponseEntity.status(HttpStatus.OK).body(services.getAllAppointment());
   }
   
-//  @GetMapping("/upcoming/{patientId}")
-//  public List<Appointment> viewUpcomingAppointments(@PathVariable Long patientId) {
-//      return services.getUpcomingAppointments(patientId);
-//  }
-//  
-//  @DeleteMapping("/cancel/{appointmentID}")
-//  public String cancelAppointment(@PathVariable Long appointmentId) {
-//      return services.cancelAppointment(appointmentId);
-//  }
+  @PostMapping
+  @Operation(description = "Create Appointment")
+  public ResponseEntity<?> addAppointment(@RequestBody @Valid AppointmentDto appointmentDto)
+  {
+	  return ResponseEntity.status(HttpStatus.OK).body(services.createAppointment(appointmentDto));
+  }
+  
+  @GetMapping("/{id}")
+  @Operation(description = "Get Appointmant By id")
+  public ResponseEntity<?> getAppointmentByID(@PathVariable Long id)
+  {
+	  try {
+		  return ResponseEntity.status(HttpStatus.OK).body(services.getAppointment(id));
+	  }catch (RuntimeException e) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	}
+  }
+  
+  @DeleteMapping("/{id}")
+  @Operation(description = "Delete Appointment..")
+  public ResponseEntity<?> deleteAppointment(@PathVariable Long id)
+  {
+	  try {
+		  return ResponseEntity.status(HttpStatus.OK).body(services.deleteAppointment(id));
+	  }catch (RuntimeException e) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	}
+  }
+  
+  @PutMapping("/{id}")
+  @Operation(description = "Update AppointMent")
+  public ResponseEntity<?> updateAppointMent(@PathVariable Long id,@RequestBody AppointmentDto appointmentDto)
+  {
+	  return ResponseEntity.status(HttpStatus.OK).body(services.updateAppointment(id, appointmentDto));
+  }
+  
 }

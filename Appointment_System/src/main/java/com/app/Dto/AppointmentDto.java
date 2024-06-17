@@ -2,21 +2,19 @@ package com.app.Dto;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentDto extends BAseDto{
-	private String patientName;
-    private String doctorName;
-    private LocalDateTime date;
 //    private LocalTime time;
+    @NotNull(message = "Doctor name CANNOT be NULL")
+	private DoctorDto doctor;
+	@NotNull(message = "Patient name CANNOT be NULL")
+	private PatientDto patient;
+	private LocalDateTime appointmentDateTime;
 }

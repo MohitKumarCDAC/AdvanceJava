@@ -33,7 +33,7 @@ public class Appointment extends BaseEntity {
 	@JoinColumn(name="doctor_id")//here we define forign key with the help of Primary key
 	//and establish relation
 	private Doctor doctor;
-	@Column(unique = true)
-	private LocalDateTime date;
+	@Column(name = "appointment_date_time",unique = true)
+	private LocalDateTime appointmentDateTime;
 	
 }

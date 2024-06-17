@@ -3,7 +3,6 @@ package com.app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.print.Doc;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -56,12 +55,31 @@ public class DoctorServiceImpl implements DoctorService {
 
 
 	@Override
-	public DoctorDto deleteDoctorById(Long id) {
-		Doctor doctor=doctorrepository.findById(id)
-				.orElseThrow(()->new DoctorNotFoundException("Doctor id Mismatch...."));
-		doctorrepository.deleteById(id);
-		
-		return modelMapper.map(doctor, DoctorDto.class);
+	public String deleteDoctorById(Long id) {
+		if(doctorrepository.existsById(id))
+		{
+			doctorrepository.deleteById(id);
+		}
+		else
+		{
+			throw new DoctorNotFoundException("Doctor id not found");
+		}
+		return "Delete Successfully.........";
+	}
+
+
+	@Override
+	public DoctorDto updateDoctor(Long id, DoctorDto doctorDto) {
+		String msg="Not Update....";
+		Doctor doctor=modelMapper.map(doctorDto, Doctor.class);
+		if(doctorrepository.existsById(id))
+		{
+			doctor.setId(id);
+			doctorrepository.save(doctor);
+			msg="Doctor Data Updated";
+			return modelMapper.map(doctor, DoctorDto.class);
+		}
+			throw new DoctorNotFoundException(msg);
 	}
 
 }

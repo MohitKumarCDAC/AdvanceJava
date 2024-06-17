@@ -65,7 +65,7 @@ public ResponseEntity<?> deletePatient(@PathVariable Long id)
 
 @PutMapping("/{id}")
 @Operation(description = "Update Patient Data.....")
-public ResponseEntity<?> updateRescord(@PathVariable Long id,@RequestBody Patient patient)
+public ResponseEntity<?> updateRescord(@PathVariable Long id,@RequestBody PatientDto patient)
 {
 	return ResponseEntity.status(HttpStatus.OK).body(pservice.updatePatientRecord(id, patient));
 }
