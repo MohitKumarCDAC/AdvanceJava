@@ -1,0 +1,10 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.entity.Author;
+
+public interface AuthorService {
+     Author addAuthor(Author author);
+     List<Author> getAllAuthor();
+}
