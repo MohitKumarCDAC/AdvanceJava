@@ -60,6 +60,8 @@ public class CustomerDetailsImpl{
 	    SellingDetails sellingDetails = mapper.map(sellingDto, SellingDetails.class);
 	    sellingDetails.setCustomer(customer);
 	    
+	    System.out.println("Before Saving:"+sellingDto.getAadharNumber());
+	    
 	    SellingDetails savedSellingDetails = sellingRepo.save(sellingDetails);
 	    return mapper.map(savedSellingDetails, SellingDetailsDto.class);
 	}

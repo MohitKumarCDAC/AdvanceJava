@@ -6,4 +6,5 @@ import com.app.entity.CustomerDetails;
 
 public interface CustomerDetailsRepository extends JpaRepository<CustomerDetails, Long> {
 	CustomerDetails findByAadharNumber(String aadharNumber);
+	
 }

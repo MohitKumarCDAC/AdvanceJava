@@ -40,6 +40,6 @@ public class SalaryDetails {
     private Double salary;
     
     @ManyToOne
-    @JoinColumn(name="employee_aadhar_no", referencedColumnName = "aadhar_no")
+    @JoinColumn(name="aadhar_no", referencedColumnName = "aadhar_no")
     private EmployeeDetails employee;
 }

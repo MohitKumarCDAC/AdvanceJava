@@ -50,6 +50,8 @@ public class SellingDetails {
 	 @Column(name="selling_date")
 	 private LocalDate sellingDate;
 	 
+	 
+	 
 	 @ManyToOne
 	 @JoinColumn(name="aadhar_no",referencedColumnName ="aadhar_no")
 	 private CustomerDetails customer;
